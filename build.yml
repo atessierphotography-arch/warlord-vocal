@@ -1,0 +1,17 @@
+name: Build VST3 (Windows)
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCOPY_AFTER_BUILD=OFF
+      - name: Build
+        run: cmake --build build --config Release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WarlordVocal-VST3-Windows
+          path: build/WarlordVocal_artefacts/Release/VST3/
